@@ -14,17 +14,15 @@ public class AuthorController {
     private final CreateAuthorService createAuthorService;
     private final GetAuthorsService getAuthorsService;
     private final GetAuthorService getAuthorService;
-    private final SearchAuthorService searchAuthorService;
     private final UpdateAuthorService updateAuthorService;
     private final DeleteAuthorService deleteAuthorService;
 
     public AuthorController (CreateAuthorService createAuthorService, GetAuthorsService getAuthorsService
-    , GetAuthorService getAuthorService, SearchAuthorService searchAuthorService,UpdateAuthorService updateAuthorService
+    , GetAuthorService getAuthorService,UpdateAuthorService updateAuthorService
     , DeleteAuthorService deleteAuthorService){
         this.createAuthorService = createAuthorService;
         this.getAuthorsService = getAuthorsService;
         this.getAuthorService = getAuthorService;
-        this.searchAuthorService = searchAuthorService;
         this.updateAuthorService = updateAuthorService;
         this.deleteAuthorService = deleteAuthorService;
 
@@ -44,10 +42,6 @@ public class AuthorController {
         return getAuthorService.execute(id);
     }
 
-    @GetMapping("/author/search")
-    public ResponseEntity<AuthorDTO> searchAuthorByName(@RequestParam String name) {
-        return searchAuthorService.execute(name);
-    }
 
     @PutMapping("/author/{id}")
     public ResponseEntity<AuthorDTO> updateAuthor(@PathVariable String id, @RequestBody Author author) {

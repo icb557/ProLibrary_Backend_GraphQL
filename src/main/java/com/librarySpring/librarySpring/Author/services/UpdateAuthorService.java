@@ -6,6 +6,7 @@ import com.librarySpring.librarySpring.Author.interfaces.Command;
 import com.librarySpring.librarySpring.Author.model.Author;
 import com.librarySpring.librarySpring.Author.model.AuthorDTO;
 import com.librarySpring.librarySpring.Author.model.UpdateAuthorCommand;
+import com.librarySpring.librarySpring.Author.validators.AuthorValidator;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
