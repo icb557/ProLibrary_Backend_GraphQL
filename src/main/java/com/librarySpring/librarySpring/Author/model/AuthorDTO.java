@@ -9,7 +9,7 @@ public class AuthorDTO {
     private String firstName;
     private String middleName;
     private String firstLastName;
-    private String middleLastName;
+    private String secondLastName;
     private String nationality;
 
     public AuthorDTO(Author author) {
@@ -17,7 +17,7 @@ public class AuthorDTO {
         this.firstName = author.getFirstName();
         this.middleName = author.getMiddleName();
         this.firstLastName = author.getFirstLastName();
-        this.middleLastName = author.getMiddleLastName();
+        this.secondLastName = author.getSecondLastName();
         this.nationality = author.getNationality();
     }
 }

@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class CreateAuthorService implements Command<Author, AuthorDTO> {
 
@@ -17,6 +19,10 @@ public class CreateAuthorService implements Command<Author, AuthorDTO> {
 
     @Override
     public ResponseEntity<AuthorDTO> execute (Author author){
+        Optional<Author> authorOptional = authorRepository.findById(author.getId());
+        if (authorOptional.isPresent()) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
         authorRepository.save(author);
         return ResponseEntity.status(HttpStatus.CREATED).body(new AuthorDTO(author));
     }

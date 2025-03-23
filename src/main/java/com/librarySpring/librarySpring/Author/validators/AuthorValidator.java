@@ -13,7 +13,7 @@ public class AuthorValidator {
         if(author.getFirstLastName().isBlank()){
             throw new IllegalArgumentException("Firs last name Cannot be empty");
         }
-        if(author.getMiddleLastName().isBlank()){
+        if(author.getSecondLastName().isBlank()){
             throw new IllegalArgumentException("Middle name  Cannot be empty");
         }
 
