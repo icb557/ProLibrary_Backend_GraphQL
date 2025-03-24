@@ -1,7 +1,7 @@
-package com.librarySpring.librarySpring.Book.interfaces;
+package com.librarySpring.librarySpring;
 
 import org.springframework.http.ResponseEntity;
 
-public interface Command <I, O> {
+public interface Query <I, O> {
     ResponseEntity<O> execute(I input);
 }

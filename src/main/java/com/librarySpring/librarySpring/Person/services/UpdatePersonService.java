@@ -1,6 +1,6 @@
 package com.librarySpring.librarySpring.Person.services;
 
-import com.librarySpring.librarySpring.Person.interfaces.Command;
+import com.librarySpring.librarySpring.Command;
 import com.librarySpring.librarySpring.Person.interfaces.PersonRepository;
 import com.librarySpring.librarySpring.Person.validators.PersonValidator;
 import com.librarySpring.librarySpring.Person.model.Person;

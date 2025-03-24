@@ -1,7 +1,7 @@
 package com.librarySpring.librarySpring.Book.services;
 
 import com.librarySpring.librarySpring.Book.interfaces.BookRepository;
-import com.librarySpring.librarySpring.Book.interfaces.Query;
+import com.librarySpring.librarySpring.Query;
 import com.librarySpring.librarySpring.Book.model.Book;
 import com.librarySpring.librarySpring.Book.model.BookDTO;
 import org.springframework.http.ResponseEntity;

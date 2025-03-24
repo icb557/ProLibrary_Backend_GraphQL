@@ -1,8 +1,8 @@
 package com.librarySpring.librarySpring.Author.services;
 
 import com.librarySpring.librarySpring.Author.interfaces.AuthorRepository;
-import com.librarySpring.librarySpring.Author.interfaces.Command;
 import com.librarySpring.librarySpring.Author.model.Author;
+import com.librarySpring.librarySpring.Command;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

@@ -2,7 +2,7 @@ package com.librarySpring.librarySpring.Book.services;
 
 import com.librarySpring.librarySpring.Book.interfaces.BookRepository;
 import com.librarySpring.librarySpring.Book.model.Book;
-import com.librarySpring.librarySpring.Person.interfaces.Command;
+import com.librarySpring.librarySpring.Command;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

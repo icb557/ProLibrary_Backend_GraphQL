@@ -1,9 +1,9 @@
 package com.librarySpring.librarySpring.Author.services;
 
 import com.librarySpring.librarySpring.Author.interfaces.AuthorRepository;
-import com.librarySpring.librarySpring.Author.interfaces.Query;
 import com.librarySpring.librarySpring.Author.model.Author;
 import com.librarySpring.librarySpring.Author.model.AuthorDTO;
+import com.librarySpring.librarySpring.Query;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 

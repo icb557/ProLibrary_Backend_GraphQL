@@ -1,7 +1,7 @@
 package com.librarySpring.librarySpring.Person.services;
 
 import com.librarySpring.librarySpring.Person.interfaces.PersonRepository;
-import com.librarySpring.librarySpring.Person.interfaces.Query;
+import com.librarySpring.librarySpring.Query;
 import com.librarySpring.librarySpring.Person.model.Person;
 import com.librarySpring.librarySpring.Person.model.PersonDTO;
 import org.springframework.http.ResponseEntity;
