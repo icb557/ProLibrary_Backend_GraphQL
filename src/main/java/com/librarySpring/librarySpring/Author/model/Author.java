@@ -1,8 +1,13 @@
 package com.librarySpring.librarySpring.Author.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.librarySpring.librarySpring.Book.model.Book;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="Author")
@@ -30,5 +35,9 @@ public class Author {
 
     @Column(name="nationality")
     private String nationality;
+
+    @ManyToMany(mappedBy = "authors" ,fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<Book> books;
 
 }

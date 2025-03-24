@@ -1,7 +1,10 @@
 package com.librarySpring.librarySpring.Author.model;
+import com.librarySpring.librarySpring.Book.model.BookDTO;
 import lombok.Data;
 
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Data
 public class AuthorDTO {

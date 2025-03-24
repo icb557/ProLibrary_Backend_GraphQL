@@ -1,19 +1,23 @@
 package com.librarySpring.librarySpring.Book.model;
 
+import com.librarySpring.librarySpring.Author.model.Author;
 import jakarta.persistence.*;
+import jakarta.persistence.criteria.Fetch;
 import jakarta.validation.constraints.*;
-import lombok.Data;
+import lombok.*;
 
-import java.time.Year;
+import java.util.Set;
 
 @Entity
 @Table(name="books")
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Book {
 
     @Id
-    @Size(min = 13, max = 13)
-    @Column(name = "isbn")
+    @Column(name = "isbn", length = 13)
     private String isbn;
 
     @NotNull
@@ -33,6 +37,14 @@ public class Book {
     @Min(1)
     @Column(name = "publicationYear")
     private Integer publicationYear;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinTable(
+            name = "book_author",
+            joinColumns = @JoinColumn(name = "book_isbn", referencedColumnName = "isbn"),
+            inverseJoinColumns = @JoinColumn(name = "author_id", referencedColumnName = "id")
+    )
+    private Set<Author> authors;
 
 }
 
