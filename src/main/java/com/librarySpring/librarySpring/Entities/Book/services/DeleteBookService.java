@@ -1,7 +1,9 @@
 package com.librarySpring.librarySpring.Entities.Book.services;
 
+import com.librarySpring.librarySpring.Entities.Book.BookErrorMessages;
 import com.librarySpring.librarySpring.Entities.Book.interfaces.BookRepository;
 import com.librarySpring.librarySpring.Entities.Book.model.Book;
+import com.librarySpring.librarySpring.Exceptions.ResourceNotFoundException;
 import com.librarySpring.librarySpring.Interfaces.Command;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +27,6 @@ public class DeleteBookService implements Command<String, Void> {
             bookRepository.deleteById(input);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
-        return null;
-        //throw exception
+        throw new ResourceNotFoundException(BookErrorMessages.BOOK_NOT_FOUND);
     }
 }

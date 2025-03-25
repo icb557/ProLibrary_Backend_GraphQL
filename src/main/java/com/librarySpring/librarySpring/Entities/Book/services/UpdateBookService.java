@@ -1,10 +1,12 @@
 package com.librarySpring.librarySpring.Entities.Book.services;
 
+import com.librarySpring.librarySpring.Entities.Book.BookErrorMessages;
 import com.librarySpring.librarySpring.Entities.Book.interfaces.BookRepository;
 import com.librarySpring.librarySpring.Entities.Book.model.Book;
 import com.librarySpring.librarySpring.Entities.Book.model.BookDTO;
 import com.librarySpring.librarySpring.Entities.Book.model.UpdateBookCommand;
 import com.librarySpring.librarySpring.Entities.Book.validators.BookValidator;
+import com.librarySpring.librarySpring.Exceptions.ResourceNotFoundException;
 import com.librarySpring.librarySpring.Interfaces.Command;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -30,7 +32,6 @@ public class UpdateBookService implements Command<UpdateBookCommand, BookDTO> {
             bookRepository.save(book);
             return ResponseEntity.ok(new BookDTO(book));
         }
-        return null;
-        //throw exception
+        throw new ResourceNotFoundException(BookErrorMessages.BOOK_NOT_FOUND);
     }
 }

@@ -1,8 +1,10 @@
 package com.librarySpring.librarySpring.Entities.Author.services;
 
+import com.librarySpring.librarySpring.Entities.Author.AuthorErrorMessages;
 import com.librarySpring.librarySpring.Entities.Author.interfaces.AuthorRepository;
 import com.librarySpring.librarySpring.Entities.Author.model.Author;
 import com.librarySpring.librarySpring.Entities.Author.model.AuthorDTO;
+import com.librarySpring.librarySpring.Exceptions.ResourceNotFoundException;
 import com.librarySpring.librarySpring.Interfaces.Query;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,6 @@ public class GetAuthorService implements Query<String, AuthorDTO> {
         if (authorOptional.isPresent()) {
             return ResponseEntity.ok(new AuthorDTO(authorOptional.get()));
         }
-        return null;
+        throw new ResourceNotFoundException(AuthorErrorMessages.AUTHOR_NOT_FOUND);
     }
 }

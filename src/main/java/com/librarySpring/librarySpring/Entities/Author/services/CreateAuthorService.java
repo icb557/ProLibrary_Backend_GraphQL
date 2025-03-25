@@ -1,8 +1,11 @@
 package com.librarySpring.librarySpring.Entities.Author.services;
 
+import com.librarySpring.librarySpring.Entities.Author.AuthorErrorMessages;
 import com.librarySpring.librarySpring.Entities.Author.interfaces.AuthorRepository;
 import com.librarySpring.librarySpring.Entities.Author.model.Author;
 import com.librarySpring.librarySpring.Entities.Author.model.AuthorDTO;
+import com.librarySpring.librarySpring.Entities.Author.validators.AuthorValidator;
+import com.librarySpring.librarySpring.Exceptions.ResourceAlreadyExistsException;
 import com.librarySpring.librarySpring.Interfaces.Command;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +24,9 @@ public class CreateAuthorService implements Command<Author, AuthorDTO> {
     public ResponseEntity<AuthorDTO> execute (Author author){
         Optional<Author> authorOptional = authorRepository.findById(author.getId());
         if (authorOptional.isPresent()) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+            throw new ResourceAlreadyExistsException(AuthorErrorMessages.AUTHOR_ALREADY_EXISTS);
         }
+        AuthorValidator.execute(author);
         authorRepository.save(author);
         return ResponseEntity.status(HttpStatus.CREATED).body(new AuthorDTO(author));
     }

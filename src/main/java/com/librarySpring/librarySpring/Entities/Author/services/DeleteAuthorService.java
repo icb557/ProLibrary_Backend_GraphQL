@@ -1,7 +1,9 @@
 package com.librarySpring.librarySpring.Entities.Author.services;
 
+import com.librarySpring.librarySpring.Entities.Author.AuthorErrorMessages;
 import com.librarySpring.librarySpring.Entities.Author.interfaces.AuthorRepository;
 import com.librarySpring.librarySpring.Entities.Author.model.Author;
+import com.librarySpring.librarySpring.Exceptions.ResourceNotFoundException;
 import com.librarySpring.librarySpring.Interfaces.Command;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,6 @@ public class DeleteAuthorService implements Command<String, Void> {
             authorRepository.deleteById(input);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
-        return null;
+        throw new ResourceNotFoundException(AuthorErrorMessages.AUTHOR_NOT_FOUND);
     }
 }

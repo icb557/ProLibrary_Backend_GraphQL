@@ -1,11 +1,13 @@
 package com.librarySpring.librarySpring.Entities.Author.services;
 
 
+import com.librarySpring.librarySpring.Entities.Author.AuthorErrorMessages;
 import com.librarySpring.librarySpring.Entities.Author.interfaces.AuthorRepository;
 import com.librarySpring.librarySpring.Entities.Author.model.Author;
 import com.librarySpring.librarySpring.Entities.Author.model.AuthorDTO;
 import com.librarySpring.librarySpring.Entities.Author.model.UpdateAuthorCommand;
 import com.librarySpring.librarySpring.Entities.Author.validators.AuthorValidator;
+import com.librarySpring.librarySpring.Exceptions.ResourceNotFoundException;
 import com.librarySpring.librarySpring.Interfaces.Command;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -28,7 +30,7 @@ public class UpdateAuthorService implements Command<UpdateAuthorCommand, AuthorD
             authorRepository.save(author);
             return ResponseEntity.ok(new AuthorDTO(author));
         }
-        return null;
+        throw new ResourceNotFoundException(AuthorErrorMessages.AUTHOR_NOT_FOUND);
     }
 
 }

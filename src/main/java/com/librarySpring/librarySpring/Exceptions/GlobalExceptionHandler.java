@@ -23,7 +23,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public ErrorResponse handlerResourceAlreadyExistsException(ResourceAlreadyExistsException exception, HttpServletRequest request) {
         String path = request.getRequestURI();
-        return new ErrorResponse(exception.getMessage(), String.valueOf(HttpStatus.NOT_FOUND.value()), path);
+        return new ErrorResponse(exception.getMessage(), String.valueOf(HttpStatus.BAD_REQUEST.value()), path);
     }
 
     @ExceptionHandler(AttributeNotValidException.class)
@@ -31,6 +31,6 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public ErrorResponse handlerAttributeNotValidException(AttributeNotValidException exception, HttpServletRequest request) {
         String path = request.getRequestURI();
-        return new ErrorResponse(exception.getMessage(), String.valueOf(HttpStatus.NOT_FOUND.value()), path);
+        return new ErrorResponse(exception.getMessage(), String.valueOf(HttpStatus.BAD_REQUEST.value()), path);
     }
 }

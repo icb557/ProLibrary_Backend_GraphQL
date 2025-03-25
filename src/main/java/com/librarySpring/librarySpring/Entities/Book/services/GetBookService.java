@@ -1,6 +1,8 @@
 package com.librarySpring.librarySpring.Entities.Book.services;
 
+import com.librarySpring.librarySpring.Entities.Book.BookErrorMessages;
 import com.librarySpring.librarySpring.Entities.Book.interfaces.BookRepository;
+import com.librarySpring.librarySpring.Exceptions.ResourceNotFoundException;
 import com.librarySpring.librarySpring.Interfaces.Query;
 import com.librarySpring.librarySpring.Entities.Book.model.Book;
 import com.librarySpring.librarySpring.Entities.Book.model.BookDTO;
@@ -24,8 +26,6 @@ public class GetBookService implements Query<String, BookDTO> {
         if (bookOptional.isPresent()) {
             return ResponseEntity.ok(new BookDTO(bookOptional.get()));
         }
-
-        return null;
-        //throw exception
+        throw new ResourceNotFoundException(BookErrorMessages.BOOK_NOT_FOUND);
     }
 }
