@@ -3,9 +3,10 @@ package com.librarySpring.librarySpring.Entities.Person.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import org.hibernate.validator.constraints.UniqueElements;
 
 @Entity
-@Table(name="people")
+@Table(name="people", uniqueConstraints = @UniqueConstraint(columnNames = "username"))
 @Data
 public class Person {
 
@@ -15,7 +16,7 @@ public class Person {
     private int id;
 
     @NotNull
-    @Column(name="username")
+    @Column(name="username", unique = true)
     private String username;
 
     @NotNull

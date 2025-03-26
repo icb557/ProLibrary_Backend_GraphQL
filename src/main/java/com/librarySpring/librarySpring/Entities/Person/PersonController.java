@@ -38,23 +38,23 @@ public class PersonController {
         return getPeopleService.execute(null);
     }
 
-    @GetMapping("/person/{id}")
-    public ResponseEntity<PersonDTO> getPersonById(@PathVariable Integer id) {
-        return getPersonService.execute(id);
+    @GetMapping("/person/{username}")
+    public ResponseEntity<PersonDTO> getPersonById(@PathVariable String username) {
+        return getPersonService.execute(username);
     }
 
     @GetMapping("/person/search")
-    public ResponseEntity<PersonDTO> searchPersonByUsername(@RequestParam String username) {
+    public ResponseEntity<List<PersonDTO>> searchPersonByUsername(@RequestParam String username) {
         return searchPersonService.execute(username);
     }
 
-    @PutMapping("/person/{id}")
-    public ResponseEntity<PersonDTO> updatePerson(@PathVariable Integer id, @RequestBody Person person) {
-        return updatePersonService.execute(new UpdatePersonCommand(id, person));
+    @PutMapping("/person/{username}")
+    public ResponseEntity<PersonDTO> updatePerson(@PathVariable String username, @RequestBody Person person) {
+        return updatePersonService.execute(new UpdatePersonCommand(username, person));
     }
 
-    @DeleteMapping("/person/{id}")
-    public ResponseEntity<Void> deletePerson(@PathVariable Integer id) {
-        return deletePersonService.execute(id);
+    @DeleteMapping("/person/{username}")
+    public ResponseEntity<Void> deletePerson(@PathVariable String username) {
+        return deletePersonService.execute(username);
     }
 }

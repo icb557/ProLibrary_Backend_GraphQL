@@ -4,11 +4,15 @@ import com.librarySpring.librarySpring.Entities.Person.interfaces.PersonReposito
 import com.librarySpring.librarySpring.Interfaces.Query;
 import com.librarySpring.librarySpring.Entities.Person.model.Person;
 import com.librarySpring.librarySpring.Entities.Person.model.PersonDTO;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
-public class SearchPersonService implements Query<String, PersonDTO> {
+public class SearchPersonService implements Query<String, List<PersonDTO>> {
     private final PersonRepository personRepository;
 
     public SearchPersonService(PersonRepository personRepository) {
@@ -16,8 +20,10 @@ public class SearchPersonService implements Query<String, PersonDTO> {
     }
 
     @Override
-    public ResponseEntity<PersonDTO> execute(String input) {
-        Person person = personRepository.findByUsername(input);
-        return ResponseEntity.ok(new PersonDTO(person));
+    public ResponseEntity<List<PersonDTO>> execute(String input) {
+        return ResponseEntity.ok(personRepository.findByUsernameContainingIgnoreCase(input)
+                .stream()
+                .map(PersonDTO::new)
+                .toList());
     }
 }

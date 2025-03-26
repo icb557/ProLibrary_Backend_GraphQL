@@ -3,10 +3,11 @@ package com.librarySpring.librarySpring.Entities.Person.validators;
 import com.librarySpring.librarySpring.Entities.Person.Enums.PersonRoles;
 import com.librarySpring.librarySpring.Entities.Person.PersonErrorMessages;
 import com.librarySpring.librarySpring.Entities.Person.model.Person;
+import com.librarySpring.librarySpring.Entities.Person.model.PersonDTO;
 import com.librarySpring.librarySpring.Exceptions.AttributeNotValidException;
 
 public class PersonValidator {
-    public static void execute(Person person) {
+    public static void execute(PersonDTO person) {
         if (person.getUsername().isBlank()) {
             throw new AttributeNotValidException(PersonErrorMessages.NAME_REQUIRED);
         }

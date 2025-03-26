@@ -1,8 +1,8 @@
 package com.librarySpring.librarySpring.Entities.Person.Enums;
 
 public enum PersonRoles {
-    ADMIN("Admin"),
-    EMPLOYEE("Employee");
+    ADMIN("ADMIN"),
+    EMPLOYEE("EMPLOYEE");
 
     private final String role;
 

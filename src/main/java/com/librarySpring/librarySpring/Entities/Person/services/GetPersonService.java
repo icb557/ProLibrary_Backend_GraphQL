@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class GetPersonService implements Query<Integer, PersonDTO> {
+public class GetPersonService implements Query<String, PersonDTO> {
 
     private final PersonRepository personRepository;
 
@@ -22,8 +22,8 @@ public class GetPersonService implements Query<Integer, PersonDTO> {
 
 
     @Override
-    public ResponseEntity<PersonDTO> execute(Integer input) {
-        Optional<Person> personOptional = personRepository.findById(input);
+    public ResponseEntity<PersonDTO> execute(String input) {
+        Optional<Person> personOptional = personRepository.findByUsername(input);
         if (personOptional.isPresent()) {
             return ResponseEntity.ok(new PersonDTO(personOptional.get()));
         }

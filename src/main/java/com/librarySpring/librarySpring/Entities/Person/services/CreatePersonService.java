@@ -9,6 +9,7 @@ import com.librarySpring.librarySpring.Entities.Person.model.Person;
 import com.librarySpring.librarySpring.Entities.Person.model.PersonDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -18,18 +19,23 @@ public class CreatePersonService implements Command<Person, PersonDTO> {
 
     private final PersonRepository personRepository;
 
-    public CreatePersonService(PersonRepository personRepository) {
+    private final PasswordEncoder passwordEncoder;
+
+    public CreatePersonService(PersonRepository personRepository, PasswordEncoder passwordEncoder) {
         this.personRepository = personRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public ResponseEntity<PersonDTO> execute(Person person) {
-        Optional<Person> personOptional = personRepository.findById(person.getId());
+        Optional<Person> personOptional = personRepository.findByUsername(person.getUsername());
         if (personOptional.isPresent()) {
             throw new ResourceAlreadyExistsException(PersonErrorMessages.PERSON_ALREADY_EXISTS);
         }
-        PersonValidator.execute(person);
+        PersonDTO personDto = new PersonDTO(person);
+        PersonValidator.execute(personDto);
+        person.setPassword(passwordEncoder.encode(person.getPassword()));
         personRepository.save(person);
-        return ResponseEntity.status(HttpStatus.CREATED).body(new PersonDTO(person));
+        return ResponseEntity.status(HttpStatus.CREATED).body(personDto);
     }
 }

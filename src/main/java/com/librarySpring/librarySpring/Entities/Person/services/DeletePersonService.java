@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class DeletePersonService implements Command<Integer, Void> {
+public class DeletePersonService implements Command<String, Void> {
     private final PersonRepository personRepository;
 
     public DeletePersonService(PersonRepository personRepository) {
@@ -20,10 +20,10 @@ public class DeletePersonService implements Command<Integer, Void> {
     }
 
     @Override
-    public ResponseEntity<Void> execute(Integer input) {
-        Optional<Person> personOptional = personRepository.findById(input);
+    public ResponseEntity<Void> execute(String input) {
+        Optional<Person> personOptional = personRepository.findByUsername(input);
         if (personOptional.isPresent()) {
-            personRepository.deleteById(input);
+            personRepository.deleteById(personOptional.get().getId());
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
         throw new ResourceNotFoundException(PersonErrorMessages.PERSON_NOT_FOUND);

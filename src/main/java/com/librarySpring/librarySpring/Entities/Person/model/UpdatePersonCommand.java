@@ -1,16 +1,16 @@
 package com.librarySpring.librarySpring.Entities.Person.model;
 
 public class UpdatePersonCommand {
-    private final Integer id;
+    private final String username;
     private final Person person;
 
-    public UpdatePersonCommand(Integer id, Person person) {
-        this.id = id;
+    public UpdatePersonCommand(String username, Person person) {
+        this.username = username;
         this.person = person;
     }
 
-    public Integer getId() {
-        return id;
+    public String getUsername() {
+        return username;
     }
 
     public Person getPerson() {
