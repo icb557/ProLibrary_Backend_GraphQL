@@ -4,17 +4,24 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class JwtUtil {
 
     public static String generateToken(User user) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("role", user.getAuthorities().iterator().next().getAuthority());
         return Jwts
                 .builder()
                 .subject(user.getUsername())
+                .claims(claims)
                 .expiration(new Date(System.currentTimeMillis() + 10 * 24 * 60 * 60 * 1000)) //5 minutes
                 .signWith(getSigningKey())
                 .compact();
