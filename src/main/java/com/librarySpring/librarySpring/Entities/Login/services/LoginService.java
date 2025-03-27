@@ -15,9 +15,11 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import javax.security.auth.login.LoginException;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
-public class LoginService implements Command<CredentialsDTO, String> {
+public class LoginService implements Command<CredentialsDTO, Map<String, String>> {
 
     private final AuthenticationManager manager;
 
@@ -26,7 +28,7 @@ public class LoginService implements Command<CredentialsDTO, String> {
     }
 
     @Override
-    public ResponseEntity<String> execute(CredentialsDTO credentials) {
+    public ResponseEntity<Map<String, String>> execute(CredentialsDTO credentials) {
         try {
             //this token is different than JWT
             UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
@@ -39,7 +41,10 @@ public class LoginService implements Command<CredentialsDTO, String> {
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
             String jwtToken = JwtUtil.generateToken((User) authentication.getPrincipal());
-            return ResponseEntity.ok(jwtToken);
+            Map<String, String> response = new HashMap<>();
+            response.put("token", jwtToken);
+
+            return ResponseEntity.ok(response);
         } catch (Exception e) {
             throw new LoginFailedException(LoginErrorMessages.LOGIN_ERROR);
         }
