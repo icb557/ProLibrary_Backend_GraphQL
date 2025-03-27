@@ -1,8 +1,11 @@
 package com.librarySpring.librarySpring.Entities.Login.services;
 
+import com.librarySpring.librarySpring.Entities.Login.LoginErrorMessages;
 import com.librarySpring.librarySpring.Entities.Login.model.CredentialsDTO;
+import com.librarySpring.librarySpring.Exceptions.LoginFailedException;
 import com.librarySpring.librarySpring.Interfaces.Command;
 import com.librarySpring.librarySpring.Security.JwtUtil;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -10,6 +13,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
+
+import javax.security.auth.login.LoginException;
 
 @Service
 public class LoginService implements Command<CredentialsDTO, String> {
@@ -22,18 +27,23 @@ public class LoginService implements Command<CredentialsDTO, String> {
 
     @Override
     public ResponseEntity<String> execute(CredentialsDTO credentials) {
-        //this token is different than JWT
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-                credentials.getUsername(),
-                credentials.getPassword()
-        );
+        try {
+            //this token is different than JWT
+            UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
+                    credentials.getUsername(),
+                    credentials.getPassword()
+            );
 
-        //this will fault if credentials not valid
-        Authentication authentication = manager.authenticate(token);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+            //this will fault if credentials not valid
+            Authentication authentication = manager.authenticate(token);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        String jwtToken = JwtUtil.generateToken((User) authentication.getPrincipal());
-        return ResponseEntity.ok(jwtToken);
+            String jwtToken = JwtUtil.generateToken((User) authentication.getPrincipal());
+            return ResponseEntity.ok(jwtToken);
+        } catch (Exception e) {
+            throw new LoginFailedException(LoginErrorMessages.LOGIN_ERROR);
+        }
+
     }
 
 

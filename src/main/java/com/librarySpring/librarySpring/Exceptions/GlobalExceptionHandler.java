@@ -33,4 +33,12 @@ public class GlobalExceptionHandler {
         String path = request.getRequestURI();
         return new ErrorResponse(exception.getMessage(), String.valueOf(HttpStatus.BAD_REQUEST.value()), path);
     }
+
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public ErrorResponse handlerException(Exception exception, HttpServletRequest request) {
+        String path = request.getRequestURI();
+        return new ErrorResponse(exception.getMessage(), String.valueOf(HttpStatus.BAD_REQUEST.value()), path);
+    }
 }
