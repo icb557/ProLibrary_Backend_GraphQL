@@ -5,6 +5,7 @@ import com.librarySpring.librarySpring.Interfaces.ErrorMessage;
 public enum AuthorErrorMessages implements ErrorMessage {
     AUTHOR_NOT_FOUND("Author not found"),
     AUTHOR_ALREADY_EXISTS("Author already exists"),
+    CANNOT_DELETE_AUTHOR("All books associated to this author should be deleted first to delete this author"),
     ID_INVALID("Id does not match the required format"),
     FIRSTNAME_REQUIRED("First Name cannot be empty"),
     LASTNAME_REQUIRED("Last Name cannot be empty"),
