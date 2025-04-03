@@ -43,6 +43,9 @@ public class SecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(authorize -> {
+                    // Allow GraphQL endpoints (both POST for queries/mutations and GET for schema/introspection)
+                    authorize.requestMatchers("/graphql/**").permitAll();
+                    authorize.requestMatchers("/graphiql/**").permitAll(); // If you want to enable GraphiQL UI for testing
 
                     authorize.requestMatchers(HttpMethod.POST, "/login").permitAll();
 

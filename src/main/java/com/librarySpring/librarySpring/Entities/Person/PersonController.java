@@ -4,12 +4,15 @@ import com.librarySpring.librarySpring.Entities.Person.model.Person;
 import com.librarySpring.librarySpring.Entities.Person.model.PersonDTO;
 import com.librarySpring.librarySpring.Entities.Person.model.UpdatePersonCommand;
 import com.librarySpring.librarySpring.Entities.Person.services.*;
+import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.MutationMapping;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
-@RestController
+@Controller
 public class PersonController {
 
     private final CreatePersonService createPersonService;
@@ -28,33 +31,33 @@ public class PersonController {
         this.deletePersonService = deletePersonService;
     }
 
-    @PostMapping("/person")
-    public ResponseEntity<PersonDTO> createPerson(@RequestBody Person person) {
+    @MutationMapping
+    public ResponseEntity<PersonDTO> createPerson(@Argument Person person) {
         return createPersonService.execute(person);
     }
 
-    @GetMapping("/people")
+    @QueryMapping
     public ResponseEntity<List<PersonDTO>> getPeople() {
         return getPeopleService.execute(null);
     }
 
-    @GetMapping("/person/{username}")
-    public ResponseEntity<PersonDTO> getPersonById(@PathVariable String username) {
+    @QueryMapping
+    public ResponseEntity<PersonDTO> getPersonById(@Argument String username) {
         return getPersonService.execute(username);
     }
 
-    @GetMapping("/person/search")
-    public ResponseEntity<List<PersonDTO>> searchPersonByUsername(@RequestParam String username) {
+    @QueryMapping
+    public ResponseEntity<List<PersonDTO>> searchPersonByUsername(@Argument String username) {
         return searchPersonService.execute(username);
     }
 
-    @PutMapping("/person/{username}")
-    public ResponseEntity<PersonDTO> updatePerson(@PathVariable String username, @RequestBody Person person) {
+    @MutationMapping
+    public ResponseEntity<PersonDTO> updatePerson(@Argument String username, @Argument Person person) {
         return updatePersonService.execute(new UpdatePersonCommand(username, person));
     }
 
-    @DeleteMapping("/person/{username}")
-    public ResponseEntity<Void> deletePerson(@PathVariable String username) {
+    @MutationMapping
+    public ResponseEntity<Void> deletePerson(@Argument String username) {
         return deletePersonService.execute(username);
     }
 }

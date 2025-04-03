@@ -1,0 +1,25 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type Query {
+    # Person queries
+    getPeople: [Person!]!
+    getPersonById(username: String!): Person
+    searchPersonByUsername(username: String!): [Person!]!
+
+    # Add other domain queries here
+}
+
+type Mutation {
+    # Login mutations
+    login(credentials: LoginInput!): String!
+
+    # Person mutations
+    createPerson(person: PersonInput!): Person!
+    updatePerson(username: String!, person: PersonInput!): Person!
+    deletePerson(username: String!): Boolean!
+
+    # Add other domain mutations here
+}

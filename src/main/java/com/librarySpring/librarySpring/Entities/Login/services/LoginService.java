@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class LoginService implements Command<CredentialsDTO, Map<String, String>> {
+public class LoginService implements Command<CredentialsDTO, String> {
 
     private final AuthenticationManager manager;
 
@@ -26,7 +26,7 @@ public class LoginService implements Command<CredentialsDTO, Map<String, String>
     }
 
     @Override
-    public ResponseEntity<Map<String, String>> execute(CredentialsDTO credentials) {
+    public ResponseEntity<String> execute(CredentialsDTO credentials) {
         try {
             //this token is different than JWT
             UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
@@ -37,12 +37,9 @@ public class LoginService implements Command<CredentialsDTO, Map<String, String>
             //this will fault if credentials not valid
             Authentication authentication = manager.authenticate(token);
             SecurityContextHolder.getContext().setAuthentication(authentication);
-
             String jwtToken = JwtUtil.generateToken((User) authentication.getPrincipal());
-            Map<String, String> response = new HashMap<>();
-            response.put("token", jwtToken);
-
-            return ResponseEntity.ok(response);
+            System.out.println(jwtToken);
+            return ResponseEntity.ok(jwtToken);
         } catch (Exception e) {
             throw new LoginFailedException(LoginErrorMessages.LOGIN_ERROR);
         }

@@ -1,0 +1,11 @@
+type Person {
+    username: String!
+    password: String!
+    role: String!
+}
+
+input PersonInput {
+    username: String!
+    password: String!
+    role: String!
+}
