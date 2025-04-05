@@ -27,7 +27,7 @@ public class CreatePersonService implements Command<Person, PersonDTO> {
     }
 
     @Override
-    public ResponseEntity<PersonDTO> execute(Person person) {
+    public PersonDTO execute(Person person) {
         Optional<Person> personOptional = personRepository.findByUsername(person.getUsername());
         if (personOptional.isPresent()) {
             throw new ResourceAlreadyExistsException(PersonErrorMessages.PERSON_ALREADY_EXISTS);
@@ -36,6 +36,6 @@ public class CreatePersonService implements Command<Person, PersonDTO> {
         PersonValidator.execute(personDto);
         person.setPassword(passwordEncoder.encode(person.getPassword()));
         personRepository.save(person);
-        return ResponseEntity.status(HttpStatus.CREATED).body(personDto);
+        return personDto;
     }
 }

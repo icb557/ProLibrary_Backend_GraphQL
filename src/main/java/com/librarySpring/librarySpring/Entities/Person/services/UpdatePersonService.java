@@ -28,7 +28,7 @@ public class UpdatePersonService implements Command<UpdatePersonCommand, PersonD
     }
 
     @Override
-    public ResponseEntity<PersonDTO> execute(UpdatePersonCommand input) {
+    public PersonDTO execute(UpdatePersonCommand input) {
         Optional<Person> personOptional = personRepository.findByUsername(input.getUsername());
         if (personOptional.isPresent()) {
             Person person = input.getPerson();
@@ -44,7 +44,7 @@ public class UpdatePersonService implements Command<UpdatePersonCommand, PersonD
                     passwordEncoder.encode(person.getPassword()),
                     person.getRole()
             );
-            return ResponseEntity.ok(personDTO);
+            return personDTO;
         }
         throw new ResourceNotFoundException(PersonErrorMessages.PERSON_NOT_FOUND);
     }

@@ -32,32 +32,32 @@ public class PersonController {
     }
 
     @MutationMapping
-    public ResponseEntity<PersonDTO> createPerson(@Argument Person person) {
+    public PersonDTO createPerson(@Argument Person person) {
         return createPersonService.execute(person);
     }
 
     @QueryMapping
-    public ResponseEntity<List<PersonDTO>> getPeople() {
+    public List<PersonDTO> getPeople() {
         return getPeopleService.execute(null);
     }
 
     @QueryMapping
-    public ResponseEntity<PersonDTO> getPersonById(@Argument String username) {
+    public PersonDTO getPersonById(@Argument String username) {
         return getPersonService.execute(username);
     }
 
     @QueryMapping
-    public ResponseEntity<List<PersonDTO>> searchPersonByUsername(@Argument String username) {
+    public List<PersonDTO> searchPersonByUsername(@Argument String username) {
         return searchPersonService.execute(username);
     }
 
     @MutationMapping
-    public ResponseEntity<PersonDTO> updatePerson(@Argument String username, @Argument Person person) {
+    public PersonDTO updatePerson(@Argument String username, @Argument Person person) {
         return updatePersonService.execute(new UpdatePersonCommand(username, person));
     }
 
     @MutationMapping
-    public ResponseEntity<Void> deletePerson(@Argument String username) {
+    public Void deletePerson(@Argument String username) {
         return deletePersonService.execute(username);
     }
 }

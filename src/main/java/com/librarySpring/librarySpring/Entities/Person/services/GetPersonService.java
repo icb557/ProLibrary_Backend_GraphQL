@@ -22,11 +22,10 @@ public class GetPersonService implements Query<String, PersonDTO> {
 
 
     @Override
-    public ResponseEntity<PersonDTO> execute(String input) {
+    public PersonDTO execute(String input) {
         Optional<Person> personOptional = personRepository.findByUsername(input);
         if (personOptional.isPresent()) {
-            System.out.println(new PersonDTO(personOptional.get()).toString());
-            return ResponseEntity.ok(new PersonDTO(personOptional.get()));
+            return new PersonDTO(personOptional.get());
         }
         throw new ResourceNotFoundException(PersonErrorMessages.PERSON_NOT_FOUND);
     }

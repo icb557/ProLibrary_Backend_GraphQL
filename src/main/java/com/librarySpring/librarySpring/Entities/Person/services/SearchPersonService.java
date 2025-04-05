@@ -20,10 +20,10 @@ public class SearchPersonService implements Query<String, List<PersonDTO>> {
     }
 
     @Override
-    public ResponseEntity<List<PersonDTO>> execute(String input) {
-        return ResponseEntity.ok(personRepository.findByUsernameContainingIgnoreCase(input)
+    public List<PersonDTO> execute(String input) {
+        return personRepository.findByUsernameContainingIgnoreCase(input)
                 .stream()
                 .map(PersonDTO::new)
-                .toList());
+                .toList();
     }
 }

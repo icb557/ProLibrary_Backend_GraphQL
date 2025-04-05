@@ -17,7 +17,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class LoginService implements Command<CredentialsDTO, String> {
+public
+class LoginService implements Command<CredentialsDTO, String> {
 
     private final AuthenticationManager manager;
 

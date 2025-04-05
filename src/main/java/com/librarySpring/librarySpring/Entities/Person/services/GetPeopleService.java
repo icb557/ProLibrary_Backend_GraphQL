@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class GetPeopleService implements Query<Void, List<PersonDTO>> {
+public class GetPeopleService {
 
     private final PersonRepository personRepository;
 
@@ -19,10 +19,9 @@ public class GetPeopleService implements Query<Void, List<PersonDTO>> {
         this.personRepository = personRepository;
     }
 
-    @Override
-    public ResponseEntity<List<PersonDTO>> execute(Void input) {
+    public List<PersonDTO> execute(Void input) {
         List<Person> people = personRepository.findAll();
         List<PersonDTO> peopleDTO = people.stream().map(PersonDTO::new).toList();
-        return ResponseEntity.status(HttpStatus.OK).body(peopleDTO);
+        return peopleDTO;
     }
 }

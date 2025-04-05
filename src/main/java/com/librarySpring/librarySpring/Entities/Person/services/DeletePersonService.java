@@ -20,12 +20,9 @@ public class DeletePersonService implements Command<String, Void> {
     }
 
     @Override
-    public ResponseEntity<Void> execute(String input) {
+    public Void execute(String input) {
         Optional<Person> personOptional = personRepository.findByUsername(input);
-        if (personOptional.isPresent()) {
-            personRepository.deleteById(personOptional.get().getId());
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        }
+        personOptional.ifPresent(person -> personRepository.deleteById(person.getId()));
         throw new ResourceNotFoundException(PersonErrorMessages.PERSON_NOT_FOUND);
     }
 }
