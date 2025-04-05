@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class DeleteBookService implements Command<String, Void> {
+public class DeleteBookService implements Command<String, Boolean> {
 
     private final BookRepository bookRepository;
 
@@ -21,9 +21,12 @@ public class DeleteBookService implements Command<String, Void> {
     }
 
     @Override
-    public Void execute(String input) {
+    public Boolean execute(String input) {
         Optional<Book> bookOptional = bookRepository.findById(input);
-        if (bookOptional.isPresent()) bookRepository.deleteById(input);
-        throw new ResourceNotFoundException(BookErrorMessages.BOOK_NOT_FOUND);
+        if (bookOptional.isEmpty()) {
+            throw new ResourceNotFoundException(BookErrorMessages.BOOK_NOT_FOUND);
+        }
+        bookRepository.deleteById(input);
+        return true;
     }
 }

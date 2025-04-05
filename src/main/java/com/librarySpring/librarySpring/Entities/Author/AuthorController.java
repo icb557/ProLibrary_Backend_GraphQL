@@ -51,7 +51,7 @@ public class AuthorController {
     }
 
     @MutationMapping
-    public Void deleteAuthor(@Argument String id) {
+    public Boolean deleteAuthor(@Argument String id) {
         return deleteAuthorService.execute(id);
     }
 

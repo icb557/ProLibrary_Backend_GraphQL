@@ -34,7 +34,7 @@ public class UpdatePersonService implements Command<UpdatePersonCommand, PersonD
             Person person = input.getPerson();
             PersonDTO personDTO = new PersonDTO(person);
             PersonValidator.execute(personDTO);
-            if (personRepository.findByUsername(person.getUsername()).isPresent()) {
+            if (personRepository.findByUsername(person.getUsername()).isPresent() && !person.getUsername().equals(personOptional.get().getUsername())) {
                 throw new ResourceAlreadyExistsException(PersonErrorMessages.PERSON_ALREADY_EXISTS);
             }
             person.setId(personOptional.get().getId());

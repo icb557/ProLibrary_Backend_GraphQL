@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class DeletePersonService implements Command<String, Void> {
+public class DeletePersonService implements Command<String, Boolean> {
     private final PersonRepository personRepository;
 
     public DeletePersonService(PersonRepository personRepository) {
@@ -20,9 +20,12 @@ public class DeletePersonService implements Command<String, Void> {
     }
 
     @Override
-    public Void execute(String input) {
+    public Boolean execute(String input) {
         Optional<Person> personOptional = personRepository.findByUsername(input);
-        personOptional.ifPresent(person -> personRepository.deleteById(person.getId()));
-        throw new ResourceNotFoundException(PersonErrorMessages.PERSON_NOT_FOUND);
+        if (personOptional.isEmpty()) {
+            throw new ResourceNotFoundException(PersonErrorMessages.PERSON_NOT_FOUND);
+        };
+        personRepository.deleteById(personOptional.get().getId());
+        return true;
     }
 }

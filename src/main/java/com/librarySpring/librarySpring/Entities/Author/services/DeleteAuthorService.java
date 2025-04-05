@@ -15,13 +15,13 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
-public class DeleteAuthorService implements Command<String, Void> {
+public class DeleteAuthorService implements Command<String, Boolean> {
     private final AuthorRepository authorRepository;
 
     public DeleteAuthorService(AuthorRepository authorRepository){this.authorRepository = authorRepository;}
 
     @Override
-    public Void execute(String input){
+    public Boolean execute(String input){
         Optional<Author> authorOptional = authorRepository.findById(input);
         if(authorOptional.isPresent()){
             Set<Book> books = authorOptional.get().getBooks();
@@ -29,6 +29,7 @@ public class DeleteAuthorService implements Command<String, Void> {
                 throw new CannotDeleteResource(AuthorErrorMessages.CANNOT_DELETE_AUTHOR);
             }
             authorRepository.deleteById(input);
+            return true;
         }
         throw new ResourceNotFoundException(AuthorErrorMessages.AUTHOR_NOT_FOUND);
     }

@@ -57,7 +57,7 @@ public class PersonController {
     }
 
     @MutationMapping
-    public Void deletePerson(@Argument String username) {
+    public Boolean deletePerson(@Argument String username) {
         return deletePersonService.execute(username);
     }
 }

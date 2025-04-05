@@ -16,7 +16,7 @@ type Query {
     # Book queries
     getBooks:[Book!]!
     getBookById(isbn: String!): Book
-    searchBookByTitle(title: String!): Book
+    searchBookByTitle(title: String!): [Book]!
 
 }
 

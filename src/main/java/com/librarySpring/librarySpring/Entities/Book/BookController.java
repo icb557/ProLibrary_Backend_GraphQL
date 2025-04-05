@@ -60,11 +60,12 @@ public class BookController {
 
     @MutationMapping
     public BookDTO updateBook(@Argument String isbn, @Argument Book book) {
+        System.out.println(book.toString());
         return updateBookService.execute(new UpdateBookCommand(isbn, book));
     }
 
     @MutationMapping
-    public Void deleteBook(@Argument String isbn) {
+    public Boolean deleteBook(@Argument String isbn) {
         return deleteBookService.execute(isbn);
     }
 
