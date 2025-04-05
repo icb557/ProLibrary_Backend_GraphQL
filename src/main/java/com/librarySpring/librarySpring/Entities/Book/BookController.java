@@ -4,12 +4,15 @@ import com.librarySpring.librarySpring.Entities.Book.model.Book;
 import com.librarySpring.librarySpring.Entities.Book.model.BookDTO;
 import com.librarySpring.librarySpring.Entities.Book.model.UpdateBookCommand;
 import com.librarySpring.librarySpring.Entities.Book.services.*;
+import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.MutationMapping;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
-@RestController
+@Controller
 public class BookController {
 
     private final CreateBookService createBookService;
@@ -28,33 +31,33 @@ public class BookController {
         this.deleteBookService = deleteBookService;
     }
 
-    @PostMapping("/book")
-    public ResponseEntity<BookDTO> createBook(@RequestBody Book book) {
+    @MutationMapping
+    public BookDTO createBook(@Argument Book book) {
         return createBookService.execute(book);
     }
 
-    @GetMapping("/books")
-    public ResponseEntity<List<BookDTO>> getBooks() {
+    @QueryMapping
+    public List<BookDTO> getBooks() {
         return getBooksService.execute(null);
     }
 
-    @GetMapping("/book/{isbn}")
-    public ResponseEntity<BookDTO> getBookById(@PathVariable String isbn) {
+    @QueryMapping
+    public BookDTO getBookById(@Argument String isbn) {
         return getBookService.execute(isbn);
     }
 
-    @GetMapping("/book/search")
-    public ResponseEntity<List<BookDTO>> searchBookByUsername(@RequestParam String title) {
+    @QueryMapping
+    public List<BookDTO> searchBookByTitle(@Argument String title) {
         return searchBookService.execute(title);
     }
 
-    @PutMapping("/book/{isbn}")
-    public ResponseEntity<BookDTO> updateBook(@PathVariable String isbn, @RequestBody Book book) {
+    @MutationMapping
+    public BookDTO updateBook(@Argument String isbn, @Argument Book book) {
         return updateBookService.execute(new UpdateBookCommand(isbn, book));
     }
 
-    @DeleteMapping("/book/{isbn}")
-    public ResponseEntity<Void> deleteBook(@PathVariable String isbn) {
+    @MutationMapping
+    public Void deleteBook(@Argument String isbn) {
         return deleteBookService.execute(isbn);
     }
 }

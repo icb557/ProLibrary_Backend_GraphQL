@@ -17,10 +17,10 @@ public class GetAuthorsService implements Query<Void,List<AuthorDTO>> {
     public GetAuthorsService(AuthorRepository authorRepository){this.authorRepository = authorRepository;}
 
     @Override
-    public ResponseEntity<List<AuthorDTO>> execute(Void input){
+    public List<AuthorDTO> execute(Void input){
         List<Author> authors = authorRepository.findAll();
         List<AuthorDTO> authorDTO = authors.stream().map(AuthorDTO::new).toList();
-        return ResponseEntity.status(HttpStatus.OK).body(authorDTO);
+        return authorDTO;
     }
 
 }

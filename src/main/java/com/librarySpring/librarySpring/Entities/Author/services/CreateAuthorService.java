@@ -21,14 +21,14 @@ public class CreateAuthorService implements Command<Author, AuthorDTO> {
     public CreateAuthorService(AuthorRepository authorRepository){this.authorRepository = authorRepository;}
 
     @Override
-    public ResponseEntity<AuthorDTO> execute (Author author){
+    public AuthorDTO execute (Author author){
         Optional<Author> authorOptional = authorRepository.findById(author.getId());
         if (authorOptional.isPresent()) {
             throw new ResourceAlreadyExistsException(AuthorErrorMessages.AUTHOR_ALREADY_EXISTS);
         }
         AuthorValidator.execute(author);
         authorRepository.save(author);
-        return ResponseEntity.status(HttpStatus.CREATED).body(new AuthorDTO(author));
+        return new AuthorDTO(author);
     }
 
 }

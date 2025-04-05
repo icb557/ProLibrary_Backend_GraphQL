@@ -4,12 +4,14 @@ import com.librarySpring.librarySpring.Entities.Author.model.Author;
 import com.librarySpring.librarySpring.Entities.Author.model.AuthorDTO;
 import com.librarySpring.librarySpring.Entities.Author.model.UpdateAuthorCommand;
 import com.librarySpring.librarySpring.Entities.Author.services.*;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.MutationMapping;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
-@RestController
+@Controller
 public class AuthorController {
     private final CreateAuthorService createAuthorService;
     private final GetAuthorsService getAuthorsService;
@@ -27,29 +29,29 @@ public class AuthorController {
         this.deleteAuthorService = deleteAuthorService;
 
     }
-    @PostMapping("/author")
-    public ResponseEntity<AuthorDTO> createAuthor(@RequestBody Author author) {
+
+    @MutationMapping
+    public AuthorDTO createAuthor(@Argument Author author) {
         return createAuthorService.execute(author);
     }
 
-    @GetMapping("/authors")
-    public ResponseEntity<List<AuthorDTO>> getAuthors() {
+    @QueryMapping
+    public List<AuthorDTO> getAuthors() {
         return getAuthorsService.execute(null);
     }
 
-    @GetMapping("/author/{id}")
-    public ResponseEntity<AuthorDTO> getAuthorById(@PathVariable String id) {
+    @QueryMapping
+    public AuthorDTO getAuthorById(@Argument String id) {
         return getAuthorService.execute(id);
     }
 
-
-    @PutMapping("/author/{id}")
-    public ResponseEntity<AuthorDTO> updateAuthor(@PathVariable String id, @RequestBody Author author) {
+    @MutationMapping
+    public AuthorDTO updateAuthor(@Argument String id, @Argument Author author) {
         return updateAuthorService.execute(new UpdateAuthorCommand(id, author));
     }
 
-    @DeleteMapping("/author/{id}")
-    public ResponseEntity<Void> deleteAuthor(@PathVariable String id) {
+    @MutationMapping
+    public Void deleteAuthor(@Argument String id) {
         return deleteAuthorService.execute(id);
     }
 

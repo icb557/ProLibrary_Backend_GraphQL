@@ -29,7 +29,7 @@ public class CreateBookService implements Command<Book, BookDTO> {
     }
 
     @Override
-    public ResponseEntity<BookDTO> execute(Book input) {
+    public BookDTO execute(Book input) {
         Optional<Book> bookOptional = bookRepository.findById(input.getIsbn());
         if (bookOptional.isPresent()) {
             throw new ResourceAlreadyExistsException(BookErrorMessages.BOOK_ALREADY_EXISTS);
@@ -46,6 +46,6 @@ public class CreateBookService implements Command<Book, BookDTO> {
         }
         input.setAuthors(authors);
         bookRepository.save(input);
-        return ResponseEntity.status(HttpStatus.CREATED).body(new BookDTO(input));
+        return new BookDTO(input);
     }
 }

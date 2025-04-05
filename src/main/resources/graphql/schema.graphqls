@@ -9,6 +9,16 @@ type Query {
     getPersonById(username: String!): Person
     searchPersonByUsername(username: String!): [Person!]!
 
+    #author queries
+    getAuthor: [Author!]!
+    getAuthorById(id: String!): Author
+    searchAuthorById(id: String!): Author
+
+    # Book queries
+    getBook:[Book!]!
+    getBookByIsbn(isbn: String!): Book
+    searchBookByIsbn(isb: String!): Book
+
     # Add other domain queries here
 }
 

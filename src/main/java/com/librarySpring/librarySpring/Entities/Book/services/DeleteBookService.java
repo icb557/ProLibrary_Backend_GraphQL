@@ -21,12 +21,9 @@ public class DeleteBookService implements Command<String, Void> {
     }
 
     @Override
-    public ResponseEntity<Void> execute(String input) {
+    public Void execute(String input) {
         Optional<Book> bookOptional = bookRepository.findById(input);
-        if (bookOptional.isPresent()) {
-            bookRepository.deleteById(input);
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        }
+        if (bookOptional.isPresent()) bookRepository.deleteById(input);
         throw new ResourceNotFoundException(BookErrorMessages.BOOK_NOT_FOUND);
     }
 }

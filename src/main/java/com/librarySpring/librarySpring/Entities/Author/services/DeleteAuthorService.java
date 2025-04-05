@@ -21,7 +21,7 @@ public class DeleteAuthorService implements Command<String, Void> {
     public DeleteAuthorService(AuthorRepository authorRepository){this.authorRepository = authorRepository;}
 
     @Override
-    public ResponseEntity<Void> execute(String input){
+    public Void execute(String input){
         Optional<Author> authorOptional = authorRepository.findById(input);
         if(authorOptional.isPresent()){
             Set<Book> books = authorOptional.get().getBooks();
@@ -29,7 +29,6 @@ public class DeleteAuthorService implements Command<String, Void> {
                 throw new CannotDeleteResource(AuthorErrorMessages.CANNOT_DELETE_AUTHOR);
             }
             authorRepository.deleteById(input);
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
         throw new ResourceNotFoundException(AuthorErrorMessages.AUTHOR_NOT_FOUND);
     }

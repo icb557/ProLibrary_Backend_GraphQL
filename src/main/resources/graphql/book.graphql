@@ -1,0 +1,18 @@
+type Book {
+    isbn: String!
+    title: String!
+    editorial: String!
+    genre: String!
+    publicationYear: Int!
+    authors: [Author]!
+}
+
+input BookInput {
+    isbn: String!
+    title: String!
+    editorial: String!
+    genre: String!
+    publicationYear: Int!
+    authors: [Author]!
+}
+

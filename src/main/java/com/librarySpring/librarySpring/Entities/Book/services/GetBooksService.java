@@ -19,9 +19,9 @@ public class GetBooksService implements Query<Book, List<BookDTO>> {
     }
 
     @Override
-    public ResponseEntity<List<BookDTO>> execute(Book input) {
+    public List<BookDTO> execute(Book input) {
         List<Book> books = bookRepository.findAll();
         List<BookDTO> bookDTOs = books.stream().map(BookDTO::new).toList();
-        return ResponseEntity.ok(bookDTOs);
+        return bookDTOs;
     }
 }

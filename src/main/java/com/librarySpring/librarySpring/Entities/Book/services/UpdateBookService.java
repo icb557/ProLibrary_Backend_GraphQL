@@ -23,14 +23,14 @@ public class UpdateBookService implements Command<UpdateBookCommand, BookDTO> {
     }
 
     @Override
-    public ResponseEntity<BookDTO> execute(UpdateBookCommand input) {
+    public BookDTO execute(UpdateBookCommand input) {
         Optional<Book> bookOptional = bookRepository.findById(input.getIsbn());
         if (bookOptional.isPresent()) {
             Book book = input.getBook();
             book.setIsbn(input.getIsbn());
             BookValidator.execute(book);
             bookRepository.save(book);
-            return ResponseEntity.ok(new BookDTO(book));
+            return new BookDTO(book);
         }
         throw new ResourceNotFoundException(BookErrorMessages.BOOK_NOT_FOUND);
     }

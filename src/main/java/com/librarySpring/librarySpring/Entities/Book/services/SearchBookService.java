@@ -18,10 +18,10 @@ public class SearchBookService implements Query<String, List<BookDTO>> {
     }
 
     @Override
-    public ResponseEntity<List<BookDTO>> execute(String input) {
-        return ResponseEntity.ok(bookRepository.findByTitleContainingIgnoreCase(input)
+    public List<BookDTO> execute(String input) {
+        return bookRepository.findByTitleContainingIgnoreCase(input)
                 .stream()
                 .map(BookDTO::new)
-                .toList());
+                .toList();
     }
 }

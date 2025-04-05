@@ -1,0 +1,19 @@
+type Author{
+    id: String!
+    firstName: String!
+    middleName: String!
+    firstLastName: String!
+    secondLastName: String!
+    nationality: String!
+}
+
+input AuthorInput{
+    id: String!
+    firstName: String!
+    middleName: String!
+    firstLastName: String!
+    secondLastName: String!
+    nationality: String!
+}
+
+

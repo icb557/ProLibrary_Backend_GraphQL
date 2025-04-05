@@ -21,14 +21,14 @@ public class UpdateAuthorService implements Command<UpdateAuthorCommand, AuthorD
     public UpdateAuthorService(AuthorRepository authorRepository){this.authorRepository = authorRepository;}
 
     @Override
-    public ResponseEntity<AuthorDTO> execute(UpdateAuthorCommand input){
+    public AuthorDTO execute(UpdateAuthorCommand input){
         Optional<Author> authorOptional = authorRepository.findById(input.getId());
         if(authorOptional.isPresent()){
             Author author = input.getAuthor();
             author.setId(input.getId());
             AuthorValidator.execute(author);
             authorRepository.save(author);
-            return ResponseEntity.ok(new AuthorDTO(author));
+            return new AuthorDTO(author);
         }
         throw new ResourceNotFoundException(AuthorErrorMessages.AUTHOR_NOT_FOUND);
     }

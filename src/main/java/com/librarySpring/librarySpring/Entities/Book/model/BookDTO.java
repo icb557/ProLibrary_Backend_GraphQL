@@ -22,5 +22,6 @@ public class BookDTO {
         this.genre = book.getGenre();
         this.publicationYear = book.getPublicationYear();
         this.authors = book.getAuthors().stream().map(AuthorDTO::new).collect(Collectors.toSet());
+
     }
 }

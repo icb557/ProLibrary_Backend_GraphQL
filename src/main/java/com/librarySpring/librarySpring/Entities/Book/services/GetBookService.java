@@ -21,10 +21,10 @@ public class GetBookService implements Query<String, BookDTO> {
     }
 
     @Override
-    public ResponseEntity<BookDTO> execute(String input) {
+    public BookDTO execute(String input) {
         Optional<Book> bookOptional = bookRepository.findById(input);
         if (bookOptional.isPresent()) {
-            return ResponseEntity.ok(new BookDTO(bookOptional.get()));
+            return new BookDTO(bookOptional.get());
         }
         throw new ResourceNotFoundException(BookErrorMessages.BOOK_NOT_FOUND);
     }

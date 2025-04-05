@@ -20,10 +20,10 @@ public class GetAuthorService implements Query<String, AuthorDTO> {
     }
 
     @Override
-    public ResponseEntity<AuthorDTO> execute(String input) {
+    public AuthorDTO execute(String input) {
         Optional<Author> authorOptional = authorRepository.findById(input);
         if (authorOptional.isPresent()) {
-            return ResponseEntity.ok(new AuthorDTO(authorOptional.get()));
+            return new AuthorDTO(authorOptional.get());
         }
         throw new ResourceNotFoundException(AuthorErrorMessages.AUTHOR_NOT_FOUND);
     }
