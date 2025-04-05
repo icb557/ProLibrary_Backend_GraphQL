@@ -13,6 +13,6 @@ input BookInput {
     editorial: String!
     genre: String!
     publicationYear: Int!
-    authors: [Author]!
+    authors: [AuthorInput]!
 }
 

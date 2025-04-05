@@ -1,7 +1,7 @@
 type Author{
     id: String!
     firstName: String!
-    middleName: String!
+    middleName: String
     firstLastName: String!
     secondLastName: String!
     nationality: String!
@@ -10,7 +10,7 @@ type Author{
 input AuthorInput{
     id: String!
     firstName: String!
-    middleName: String!
+    middleName: String
     firstLastName: String!
     secondLastName: String!
     nationality: String!

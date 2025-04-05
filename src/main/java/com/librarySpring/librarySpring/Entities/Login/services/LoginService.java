@@ -27,7 +27,7 @@ class LoginService implements Command<CredentialsDTO, String> {
     }
 
     @Override
-    public ResponseEntity<String> execute(CredentialsDTO credentials) {
+    public String execute(CredentialsDTO credentials) {
         try {
             //this token is different than JWT
             UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
@@ -40,7 +40,7 @@ class LoginService implements Command<CredentialsDTO, String> {
             SecurityContextHolder.getContext().setAuthentication(authentication);
             String jwtToken = JwtUtil.generateToken((User) authentication.getPrincipal());
             System.out.println(jwtToken);
-            return ResponseEntity.ok(jwtToken);
+            return jwtToken;
         } catch (Exception e) {
             throw new LoginFailedException(LoginErrorMessages.LOGIN_ERROR);
         }

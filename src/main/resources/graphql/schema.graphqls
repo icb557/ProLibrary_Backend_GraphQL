@@ -9,17 +9,15 @@ type Query {
     getPersonById(username: String!): Person
     searchPersonByUsername(username: String!): [Person!]!
 
-    #author queries
-    getAuthor: [Author!]!
+    # Author queries
+    getAuthors: [Author!]!
     getAuthorById(id: String!): Author
-    searchAuthorById(id: String!): Author
 
     # Book queries
-    getBook:[Book!]!
-    getBookByIsbn(isbn: String!): Book
-    searchBookByIsbn(isb: String!): Book
+    getBooks:[Book!]!
+    getBookById(isbn: String!): Book
+    searchBookByTitle(title: String!): Book
 
-    # Add other domain queries here
 }
 
 type Mutation {
@@ -31,5 +29,13 @@ type Mutation {
     updatePerson(username: String!, person: PersonInput!): Person!
     deletePerson(username: String!): Boolean!
 
-    # Add other domain mutations here
+    # Author mutations
+    createAuthor(author: AuthorInput!): Author!
+    updateAuthor(id: String!, author: AuthorInput!): Author!
+    deleteAuthor(id: String!): Boolean!
+
+    # Book mutations
+    createBook(book: BookInput!): Book!
+    updateBook(isbn: String!, book: BookInput!): Book!
+    deleteBook(isbn: String!): Boolean!
 }
