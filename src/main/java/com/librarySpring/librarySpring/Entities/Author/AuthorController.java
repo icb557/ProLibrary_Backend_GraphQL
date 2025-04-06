@@ -7,6 +7,7 @@ import com.librarySpring.librarySpring.Entities.Author.services.*;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
@@ -31,26 +32,31 @@ public class AuthorController {
     }
 
     @MutationMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public AuthorDTO createAuthor(@Argument Author author) {
         return createAuthorService.execute(author);
     }
 
     @QueryMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     public List<AuthorDTO> getAuthors() {
         return getAuthorsService.execute(null);
     }
 
     @QueryMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     public AuthorDTO getAuthorById(@Argument String id) {
         return getAuthorService.execute(id);
     }
 
     @MutationMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public AuthorDTO updateAuthor(@Argument String id, @Argument Author author) {
         return updateAuthorService.execute(new UpdateAuthorCommand(id, author));
     }
 
     @MutationMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public Boolean deleteAuthor(@Argument String id) {
         return deleteAuthorService.execute(id);
     }

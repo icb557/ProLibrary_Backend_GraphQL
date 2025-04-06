@@ -47,25 +47,26 @@ public class SecurityConfiguration {
                     authorize.requestMatchers("/graphql/**").permitAll();
                     authorize.requestMatchers("/graphiql/**").permitAll(); // If you want to enable GraphiQL UI for testing
 
-                    authorize.requestMatchers(HttpMethod.POST, "/login").permitAll();
-
-                    authorize.requestMatchers(HttpMethod.POST, "/person").hasRole(roleAdmin);
-                    authorize.requestMatchers(HttpMethod.GET, "/person/*").hasRole(roleAdmin);
-                    authorize.requestMatchers(HttpMethod.PUT, "/person/*").hasRole(roleAdmin);
-                    authorize.requestMatchers(HttpMethod.DELETE, "/person/*").hasRole(roleAdmin);
-                    authorize.requestMatchers(HttpMethod.GET, "/people").hasRole(roleAdmin);
-
-                    authorize.requestMatchers(HttpMethod.POST, "/book").hasRole(roleAdmin);
-                    authorize.requestMatchers(HttpMethod.GET, "/book/*").hasAnyRole(roleAdmin, roleEmployee);
-                    authorize.requestMatchers(HttpMethod.GET, "/books").hasAnyRole(roleAdmin, roleEmployee);
-                    authorize.requestMatchers(HttpMethod.PUT, "/book/*").hasRole(roleAdmin);
-                    authorize.requestMatchers(HttpMethod.DELETE, "/book/*").hasRole(roleAdmin);
-
-                    authorize.requestMatchers(HttpMethod.POST, "/author").hasRole(roleAdmin);
-                    authorize.requestMatchers(HttpMethod.GET, "/author/*").hasAnyRole(roleAdmin, roleEmployee);
-                    authorize.requestMatchers(HttpMethod.GET, "/authors").hasAnyRole(roleAdmin, roleEmployee);
-                    authorize.requestMatchers(HttpMethod.PUT, "/author/*").hasRole(roleAdmin);
-                    authorize.requestMatchers(HttpMethod.DELETE,"/author/*").hasRole(roleAdmin);
+                    // request matchers below are for the REST endpoints (deprecated in favor of GraphQL)
+//                    authorize.requestMatchers(HttpMethod.POST, "/login").permitAll();
+//
+//                    authorize.requestMatchers(HttpMethod.POST, "/person").hasRole(roleAdmin);
+//                    authorize.requestMatchers(HttpMethod.GET, "/person/*").hasRole(roleAdmin);
+//                    authorize.requestMatchers(HttpMethod.PUT, "/person/*").hasRole(roleAdmin);
+//                    authorize.requestMatchers(HttpMethod.DELETE, "/person/*").hasRole(roleAdmin);
+//                    authorize.requestMatchers(HttpMethod.GET, "/people").hasRole(roleAdmin);
+//
+//                    authorize.requestMatchers(HttpMethod.POST, "/book").hasRole(roleAdmin);
+//                    authorize.requestMatchers(HttpMethod.GET, "/book/*").hasAnyRole(roleAdmin, roleEmployee);
+//                    authorize.requestMatchers(HttpMethod.GET, "/books").hasAnyRole(roleAdmin, roleEmployee);
+//                    authorize.requestMatchers(HttpMethod.PUT, "/book/*").hasRole(roleAdmin);
+//                    authorize.requestMatchers(HttpMethod.DELETE, "/book/*").hasRole(roleAdmin);
+//
+//                    authorize.requestMatchers(HttpMethod.POST, "/author").hasRole(roleAdmin);
+//                    authorize.requestMatchers(HttpMethod.GET, "/author/*").hasAnyRole(roleAdmin, roleEmployee);
+//                    authorize.requestMatchers(HttpMethod.GET, "/authors").hasAnyRole(roleAdmin, roleEmployee);
+//                    authorize.requestMatchers(HttpMethod.PUT, "/author/*").hasRole(roleAdmin);
+//                    authorize.requestMatchers(HttpMethod.DELETE,"/author/*").hasRole(roleAdmin);
 
                     //must be at the bottom
                     authorize.anyRequest().authenticated();

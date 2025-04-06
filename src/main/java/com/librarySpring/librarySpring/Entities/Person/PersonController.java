@@ -8,6 +8,7 @@ import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
@@ -32,31 +33,37 @@ public class PersonController {
     }
 
     @MutationMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public PersonDTO createPerson(@Argument Person person) {
         return createPersonService.execute(person);
     }
 
     @QueryMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public List<PersonDTO> getPeople() {
         return getPeopleService.execute(null);
     }
 
     @QueryMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public PersonDTO getPersonById(@Argument String username) {
         return getPersonService.execute(username);
     }
 
     @QueryMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public List<PersonDTO> searchPersonByUsername(@Argument String username) {
         return searchPersonService.execute(username);
     }
 
     @MutationMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public PersonDTO updatePerson(@Argument String username, @Argument Person person) {
         return updatePersonService.execute(new UpdatePersonCommand(username, person));
     }
 
     @MutationMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public Boolean deletePerson(@Argument String username) {
         return deletePersonService.execute(username);
     }

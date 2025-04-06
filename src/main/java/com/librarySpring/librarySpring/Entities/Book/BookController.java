@@ -12,6 +12,7 @@ import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
@@ -39,32 +40,38 @@ public class BookController {
     }
 
     @MutationMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public BookDTO createBook(@Argument Book book) {
         return createBookService.execute(book);
     }
 
     @QueryMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     public List<BookDTO> getBooks() {
         return getBooksService.execute(null);
     }
 
     @QueryMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     public BookDTO getBookById(@Argument String isbn) {
         return getBookService.execute(isbn);
     }
 
     @QueryMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     public List<BookDTO> searchBookByTitle(@Argument String title) {
         return searchBookService.execute(title);
     }
 
     @MutationMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public BookDTO updateBook(@Argument String isbn, @Argument Book book) {
         System.out.println(book.toString());
         return updateBookService.execute(new UpdateBookCommand(isbn, book));
     }
 
     @MutationMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public Boolean deleteBook(@Argument String isbn) {
         return deleteBookService.execute(isbn);
     }
